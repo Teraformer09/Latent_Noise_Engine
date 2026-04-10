@@ -1,0 +1,68 @@
+# LatentNoise-Core · default configuration
+# All modules read from this file. Override per-experiment via YAML merge.
+
+seed: 42
+
+time:
+  dt: 0.01          # physical time step
+  horizon: 1000     # simulation steps T
+  warmup: 50        # steps before recording metrics
+
+system:
+  hilbert_dim: 2          # qubit Hilbert space dimension
+  n_qubits: 1
+  normalize_H: true       # scale spectrum to [-1,1] before QSP
+  operator_ordering: "channel_first"   # apply E_t before U_t
+
+noise:
+  type: fgn              # fractional Gaussian noise
+  hurst: 0.7             # H > 0.5 → long memory
+  drift_sigma: 0.01      # σ_ν for random walk drift
+  fgn_method: davies_harte   # or cholesky (slow, exact)
+  coupling_axes: [X, Z]  # Pauli axes driven by noise
+
+signal:
+  window: hann           # spectral leakage mitigation
+  chunk_size: 64         # FFT window length
+  normalize: true        # z-score before polynomial mapping
+  epsilon_sigma: 0.01    # additive measurement noise σ
+
+polynomial:
+  degree: 5              # Chebyshev expansion degree d
+  construction: lowpass  # lowpass | fitted
+  regularization: 1e-3   # L2 penalty on coefficients
+
+qsp:
+  method: optimization   # optimization | fejer_riesz
+  n_iter: 500
+  lr: 0.01
+  phase_clamp: true      # constrain φ_k ∈ [-π, π]
+  reinit_trials: 5       # multiple random starts
+  convergence_tol: 1e-6
+  unitary_check: true    # validate U†U = I after solve
+
+channel:
+  type: pauli            # pauli | depolarising
+  softmax_temp: 1.0      # temperature for channel softmax
+
+latent:
+  dim: 3                 # [λ_X², λ_Z², c_t]
+  A_spectral_radius: 0.95  # ρ(A) < 1 stability
+  control_matrix_rank: full
+
+training:
+  loss: discounted_hazard
+  gamma: 0.99            # discount factor
+  batch_size: 128
+  n_epochs: 100
+  optimizer: adam
+  learning_rate: 3e-4
+
+metrics:
+  hazard_crit: 0.3       # H_crit threshold for failure
+  fidelity_type: logical  # pure | logical
+
+logging:
+  level: INFO
+  log_every: 50
+  save_trajectories: false   # memory-saving: only log metrics

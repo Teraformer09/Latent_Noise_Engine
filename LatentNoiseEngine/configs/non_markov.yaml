@@ -1,0 +1,19 @@
+# Non-Markovian regime — strong long-memory, slower drift
+# Inherits default.yaml; override only changed keys.
+
+noise:
+  hurst: 0.85            # stronger long memory
+  drift_sigma: 0.005
+
+signal:
+  chunk_size: 128        # longer window for low-frequency resolution
+
+polynomial:
+  degree: 7
+
+qsp:
+  n_iter: 800
+  lr: 0.005
+
+time:
+  horizon: 2000

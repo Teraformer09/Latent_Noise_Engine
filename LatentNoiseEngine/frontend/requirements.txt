@@ -1,0 +1,27 @@
+# Latent Noise Engine — Frontend Requirements
+# Install with: pip install -r requirements.txt
+
+# UI framework
+panel>=1.3.0
+
+# 3D visualization (optional — falls back to matplotlib heatmap if missing)
+pyvista>=0.43.0
+vtk>=9.2.0
+
+# Plotting (always required)
+matplotlib>=3.7.0
+numpy>=1.24.0
+
+# JAX backend (required by latent_noise backend)
+jax>=0.4.14
+jaxlib>=0.4.14
+
+# Quantum simulation backend
+# stim>=1.13.0        # uncomment if stim-based decoder is used
+pymatching>=2.0.0    # minimum-weight matching decoder
+
+# YAML config loading (used by latent_core)
+pyyaml>=6.0
+
+# Utilities
+scipy>=1.10.0        # optional — used by some signal features

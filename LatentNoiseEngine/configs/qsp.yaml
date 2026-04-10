@@ -1,0 +1,16 @@
+# QSP-focused experiment config — emphasize solver stability
+noise:
+  hurst: 0.7
+  drift_sigma: 0.01
+
+polynomial:
+  degree: 9
+  construction: fitted
+
+qsp:
+  method: optimization
+  n_iter: 2000
+  lr: 0.005
+  reinit_trials: 10
+  convergence_tol: 1e-8
+  unitary_check: true
