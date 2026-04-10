@@ -124,6 +124,9 @@ Then open **http://localhost:5173** in your browser.
 
 ---
 
+<img width="1914" height="911" alt="Screenshot 2026-04-10 150515" src="https://github.com/user-attachments/assets/dd4b1717-2f5f-40b6-b52c-095e47739ec3" />
+
+
 ## Dashboard Panels
 
 | Panel | Description |
